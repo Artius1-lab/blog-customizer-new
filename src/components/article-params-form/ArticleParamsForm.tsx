@@ -7,6 +7,7 @@ import {
 	ArticleStateType,
 	backgroundColors,
 	contentWidthArr,
+	defaultArticleState,
 	fontColorsOptions,
 	fontFamilyOptions,
 	fontSizeOptions,
@@ -17,8 +18,6 @@ import { Text } from 'src/ui/text';
 import { AsideWindow } from '../aside-window/';
 
 type ArticleParamsFormProps = {
-	currentValues: ArticleStateType;
-	defaultValues: ArticleStateType;
 	onChange: (newValues: ArticleStateType) => void;
 };
 
@@ -26,29 +25,22 @@ type ArticleParamsFormProps = {
  * Форма для изменения параметов статьи
  */
 export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
-	const { currentValues, defaultValues, onChange } = props;
+	const { onChange } = props;
 	const [isOpen, setOpen] = useState(false);
 
-	const [userFormData, setUserFormData] = useState<Partial<ArticleStateType>>(
-		{}
-	);
-
-	const formData: ArticleStateType = {
-		...currentValues,
-		...userFormData,
-	};
+	const [formData, setFormData] =
+		useState<ArticleStateType>(defaultArticleState);
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		onChange(formData);
-		setUserFormData({});
 		// Расскоментируйте, если необходимо закрытие окна формы после нажатия на кнопку "Применить"
 		// setOpen(false);
 	};
 
 	const onReset = () => {
-		onChange(defaultValues);
-		setUserFormData({});
+		onChange(defaultArticleState);
+		setFormData(defaultArticleState);
 		// Расскоментируйте, если необходимо закрытие окна формы после нажатия на кнопку "Сбросить"
 		// setOpen(false);
 	};
@@ -65,7 +57,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						selected={formData.fontFamilyOption}
 						options={fontFamilyOptions}
 						onChange={(option) =>
-							setUserFormData((l) => ({ ...l, fontFamilyOption: option }))
+							setFormData((l) => ({ ...l, fontFamilyOption: option }))
 						}
 					/>
 				</div>
@@ -76,7 +68,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						options={fontSizeOptions}
 						selected={formData.fontSizeOption}
 						onChange={(option) =>
-							setUserFormData((l) => ({ ...l, fontSizeOption: option }))
+							setFormData((l) => ({ ...l, fontSizeOption: option }))
 						}
 					/>
 				</div>
@@ -86,7 +78,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						selected={formData.fontColor}
 						options={fontColorsOptions}
 						onChange={(option) =>
-							setUserFormData((l) => ({ ...l, fontColor: option }))
+							setFormData((l) => ({ ...l, fontColor: option }))
 						}
 					/>
 				</div>
@@ -99,7 +91,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						selected={formData.backgroundColor}
 						options={backgroundColors}
 						onChange={(option) =>
-							setUserFormData((l) => ({ ...l, backgroundColor: option }))
+							setFormData((l) => ({ ...l, backgroundColor: option }))
 						}
 					/>
 				</div>
@@ -109,7 +101,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						selected={formData.contentWidth}
 						options={contentWidthArr}
 						onChange={(option) =>
-							setUserFormData((l) => ({ ...l, contentWidth: option }))
+							setFormData((l) => ({ ...l, contentWidth: option }))
 						}
 					/>
 				</div>
