@@ -1,0 +1,15 @@
+.container {
+	position: fixed;
+	left: 0;
+	width: 616px;
+	height: 100%;
+	overflow: hidden auto;
+	background-color: #ffffff;
+	border-right: 1px solid #000000;
+	transform: translate(-616px);
+	transition: transform 0.5s ease;
+}
+
+.container_open {
+	transform: translate(0);
+}
